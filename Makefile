@@ -6,6 +6,9 @@ final:		$(OBJ)
 main.o: 	main.cc
 	g++ -c main.cc
 
+Property.o: Property.cc Property.h
+	g++ -c Property.cc
+
 Report.o: 	Report.cc Report.h
 	g++ -c Report.cc
 
