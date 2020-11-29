@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <iterator>
 
 using namespace std;
 #include "Record.h"
@@ -13,6 +15,7 @@ class ReportGenerator
     public:
 
     private:
+        vector<Record> records;
 
 };
 
