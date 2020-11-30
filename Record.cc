@@ -1,4 +1,7 @@
 #include <iostream>
+#include <iomanip>
+#include <cstdlib>
+
 using namespace std;
 #include <string>
 #include <vector>
@@ -37,4 +40,13 @@ int Record::getNumEmployed(){
 
 int Record::getnumGrades(){
     return numGrades;
+}
+
+ostream& operator<<(ostream& output, const Record& r)
+{
+  output<<"Record: " << r.year << "  " << setw(10) <<"Region: " << r.region << " "
+                     << setw(10) <<"Degree: "<< r.degree << "   Number Employed: "
+                     << fixed << setprecision(2) << right << r.numEmployed << "   Number Grades: "
+                     << fixed << setprecision(2)  << right << r.numGrades<< endl;
+  return output;
 }
