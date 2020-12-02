@@ -16,6 +16,8 @@ class Property
         Property(T);
         Property<T>& operator+=(Record*);//adds to the property records
         Record* operator[](int);//returns element at index
+        T getData();
+        int size();
         
     private:
         T data;
@@ -25,6 +27,16 @@ class Property
 template <class T>
 Property<T>::Property(T d){
     data = d;
+}
+
+template <class T>
+int Property<T>::size(){
+    return records.getSize();
+}
+
+template <class T>
+T Property<T>::getData(){
+    return data;
 }
 
 template <class T>
@@ -46,6 +58,7 @@ Record* Property<T>::operator[](int i)
             throw "Invalid index";
         }
     }
+    //make change to exit here
     catch(...)
     {
         cout<<"Invalid Index"<<endl;

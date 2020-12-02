@@ -42,6 +42,7 @@ int Record::getnumGrades(){
     return numGrades;
 }
 
+//try to allign the last two
 ostream& operator<<(ostream& output, const Record& r)
 {
   output<<"Record: " << r.year << "  " << setw(10) <<"Region: " << r.region << " "

@@ -18,18 +18,20 @@ class List
   public:
     List();
     ~List();//delocates all nodes
-    void add(T*);//adds book to linked list
+    void add(T*);//adds data to linked list
     T* get(int);//return at given index
     void print() const;//prints linked list data
-    void cleanup();//delocates all book
+    void cleanup();//delocates all data
+    int getSize();//returns size
 
   private:
     Node* head;
     Node* tail;
+    int size;
 };
 
 template <class T>
-List<T>::List() : head(NULL), tail(NULL){}
+List<T>::List() : head(NULL), tail(NULL), size(0){}
 
 template <class T>
 List<T>::~List()
@@ -46,6 +48,13 @@ List<T>::~List()
   }
 }
 
+
+
+template <class T>
+int List<T>::getSize()
+{
+  return size;
+}
 template <class T>
 void List<T>::add(T* d)
 {
@@ -64,6 +73,7 @@ void List<T>::add(T* d)
     tail->next = tmpNode;
     tail = tmpNode;
   }
+  size++;
 }
 
 template <class T>
@@ -102,6 +112,7 @@ void List<T>::cleanup(){
     delete currNode->data;
     currNode = nextNode;
   }
+  size = 0;
 }
 
 

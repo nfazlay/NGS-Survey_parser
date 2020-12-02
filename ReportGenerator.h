@@ -21,12 +21,12 @@ class ReportGenerator
         void split(const string&, vector<string>&);
 
     private:
+        void parsePartial(char&);
         string reportName; 
         vector<Record*> records;
-        List<Property<int>> yearCollection;
-        List<Property<string>> regionCollection;
-        List<Property<string>> degreeCollection; 
-
+        vector<Property<int>*> yearCollection;
+        vector<Property<string>*> regionCollection;
+        vector<Property<string>*> degreeCollection; 
 };
 
 

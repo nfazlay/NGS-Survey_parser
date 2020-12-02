@@ -30,13 +30,103 @@ void ReportGenerator::split(const string& data, vector<string>& c){
     }
 }
 
+/**Helper function that populates the partial collections
+ * 
+ * Parameters:
+ *      None
+ * 
+ * Returns:
+ *      None
+ * 
+**/
+void ReportGenerator::parsePartial(char& m){
+    int year;
+    string region, degree;
+
+    Property<int>* prpPtr;
+    Property<string>* rgnPtr;
+    Property<string>* degPtr;
+    int flag = 0;
+    
+
+    for (auto i = records.begin(); i != records.end(); ++i){
+        Record* rcdPtr = *i;
+        year = rcdPtr->getYear();
+        degree = rcdPtr->getDegree();
+        region = rcdPtr->getRegion();
+
+        //iterates the partial year collections and checks if 
+        //collection exists
+        for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
+            Property<int>* prpPtrTemp = *k;
+            int data = prpPtrTemp->getData();
+            if(year == data){//Property already exists
+                *(prpPtrTemp)+=rcdPtr;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag != 1){
+            //we get here if no instance of current data is
+            //found in the partial collection
+            //Create new property, add record to it and add to partial collection
+            Property<int>* newProp = new Property<int>(year);
+            *(newProp)+= rcdPtr;
+            yearCollection.push_back(newProp);
+        }
+        flag = 0;//set flag to zero for next property type
+
+        //iterates the partial region collection and checks if 
+        //collection exists
+        for (auto k = regionCollection.begin(); k != regionCollection.end(); ++k){
+            Property<string>* prpPtrTemp = *k;
+            string data = prpPtrTemp->getData();
+            if(region == data){//Property already exists
+                *(prpPtrTemp)+=rcdPtr;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag != 1){
+            //we get here if no instance of current data is
+            //found in the partial collection
+            //Create new property, add record to it and add to partial collection
+            Property<string>* newProp = new Property<string>(region);
+            *(newProp)+= rcdPtr;
+            regionCollection.push_back(newProp);
+        }
+        flag = 0;
+
+        //iterates the partial degree collections and checks if 
+        //collection exists
+        for (auto k = degreeCollection.begin(); k != degreeCollection.end(); ++k){
+            Property<string>* prpPtrTemp = *k;
+            string data = prpPtrTemp->getData();
+            if(degree == data){//Property already exists
+                *(prpPtrTemp)+=rcdPtr;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag != 1){
+            //we get here if no instance of current data is
+            //found in the partial collection
+            //Create new property, add record to it and add to partial collection
+            Property<string>* newProp = new Property<string>(degree);
+            *(newProp)+= rcdPtr;
+            degreeCollection.push_back(newProp);
+        }
+        flag = 0;
+    }
+}
+
 
 bool ReportGenerator::load(string filePath){
     fstream newfile;
     newfile.open(filePath,ios::in); //open a file to perform read operation using file object
     if (newfile.is_open()){   //checking whether the file is open
         string tp;
-        int i = 0;
+
         while(getline(newfile, tp)){  //read data from file object and put it into string.
             vector<string> separated;//holds splitted data
             split(tp, separated);
@@ -48,16 +138,45 @@ bool ReportGenerator::load(string filePath){
             int numEmployed = stoi(separated[4]);
             int numGrades = stoi(separated[5]);
 
-            //create record
+            //create record and add to vector of records
             Record* newRecord = new Record(year, region, degree, gender, numEmployed, numGrades);
             records.push_back(newRecord);
-            cout<<*records[i];
-            i++;
         }
-        newfile.close();   //close the file object.
+        newfile.close();//close the file object.
+        parsePartial();
+        for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
+            Property<int> p = **k;
+            cout<<"Property Data: "<<p.getData()<<endl;
+            //Property<int> pr  = *p;
+            for(int i = 0; i < p.size(); i++){
+                Record* r = p[i];
+                cout<<*r;
+            }
+        }
+        cout<<"\n"<<"---------------------------------------------"<<endl;
+        for (auto k = regionCollection.begin(); k != regionCollection.end(); ++k){
+            Property<string> p = **k;
+            cout<<"Property Data: "<<p.getData()<<endl;
+            //Property<int> pr  = *p;
+            for(int i = 0; i < p.size(); i++){
+                Record* r = p[i];
+                cout<<*r;
+            }
+        }
+        cout<<"---------------------------------------------"<<endl;
+        for (auto k = degreeCollection.begin(); k != degreeCollection.end(); ++k){
+            Property<string> p = **k;
+            cout<<"Property Data: "<<p.getData()<<endl;
+            //Property<int> pr  = *p;
+            for(int i = 0; i < p.size(); i++){
+                Record* r = p[i];
+                cout<<*r;
+            }
+        }
     }
     else{
         cout<<"Could not open file"<<endl;
+        return false;
     }
     return true;
 }
