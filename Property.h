@@ -1,3 +1,6 @@
+#ifndef PROPERTY_H
+#define PROPERTY_H
+
 #include <iostream>
 #include <string>
 
@@ -50,3 +53,5 @@ Record* Property<T>::operator[](int i)
     }
     return t;
 }
+
+#endif

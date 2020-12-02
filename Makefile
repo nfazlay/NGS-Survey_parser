@@ -1,7 +1,5 @@
-OBJ = main.o Record.o ReportGenerator.o
-
-final:		$(OBJ)
-	g++ -o final $(OBJ)
+final:		main.o Record.o ReportGenerator.o
+	g++ -o final main.o Record.o ReportGenerator.o
 
 main.o: 	main.cc
 	g++ -c main.cc

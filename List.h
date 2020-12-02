@@ -111,8 +111,16 @@ void List<T>::print() const
   Node* currNode = head;
 
   while (currNode != NULL) {
-    cout<< *(currNode->data);
-    currNode = currNode->next;
+    try
+    {
+      cout<< *(currNode->data);
+      currNode = currNode->next;
+    }
+    catch(...)
+    {
+      cerr<<"Object of type "<<typeid(*(currNode->data)).name()<<" cannot be printed"<<endl;
+    }
+    
   }
 }
 

@@ -7,9 +7,11 @@ using namespace std;
 #include "Record.h"
 #include "List.h"
 #include "Property.h"
+#include "ReportGenerator.h"
 
 int main(){
     // List<Record> records;
+    ReportGenerator rg;
     Record* r = new Record(2000, "AB", "Bachelor's", "All", 6900, 7500);
     // records.add(r);
     // records.add(r);
@@ -24,6 +26,7 @@ int main(){
     prop += r;
     r = prop[2];
     cout<<*r;
+    rg.load("grad.dat");
 
     //cout<< *r;
     return 0;
