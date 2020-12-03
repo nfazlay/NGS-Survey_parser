@@ -19,9 +19,10 @@ class ReportGenerator
         ReportGenerator();
         bool load(string);
         void split(const string&, vector<string>&);
+        virtual void execute(string& outStr);
 
     private:
-        void parsePartial(char&);
+        void parsePartial();
         string reportName; 
         vector<Record*> records;
         vector<Property<int>*> yearCollection;

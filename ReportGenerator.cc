@@ -39,15 +39,11 @@ void ReportGenerator::split(const string& data, vector<string>& c){
  *      None
  * 
 **/
-void ReportGenerator::parsePartial(char& m){
+void ReportGenerator::parsePartial(){
     int year;
     string region, degree;
 
-    Property<int>* prpPtr;
-    Property<string>* rgnPtr;
-    Property<string>* degPtr;
     int flag = 0;
-    
 
     for (auto i = records.begin(); i != records.end(); ++i){
         Record* rcdPtr = *i;
@@ -144,7 +140,7 @@ bool ReportGenerator::load(string filePath){
         }
         newfile.close();//close the file object.
         parsePartial();
-        for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
+        /*for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
             Property<int> p = **k;
             cout<<"Property Data: "<<p.getData()<<endl;
             //Property<int> pr  = *p;
@@ -172,7 +168,7 @@ bool ReportGenerator::load(string filePath){
                 Record* r = p[i];
                 cout<<*r;
             }
-        }
+        }*/
     }
     else{
         cout<<"Could not open file"<<endl;
