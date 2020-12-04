@@ -1,11 +1,6 @@
 #ifndef RECORD_H
 #define RECORD_H
 
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 
 class Record
 {
@@ -18,7 +13,7 @@ class Record
         string getDegree();
         string getGender();
         int getNumEmployed();
-        int getnumGrades();
+        int getnumGrads();
 
     private:
         int year;
@@ -26,7 +21,7 @@ class Record
         string degree;
         string gender;
         int numEmployed;
-        int numGrades;
+        int numGrads;
 
 };
 

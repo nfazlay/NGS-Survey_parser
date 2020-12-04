@@ -14,7 +14,7 @@ Record::Record(int y, string r, string d, string g, int ne, int ng ){
     degree = d;
     gender = g;
     numEmployed = ne;
-    numGrades = ng;
+    numGrads = ng;
 }
 
 int Record::getYear(){
@@ -38,8 +38,8 @@ int Record::getNumEmployed(){
 }
 
 
-int Record::getnumGrades(){
-    return numGrades;
+int Record::getnumGrads(){
+    return numGrads;
 }
 
 //try to allign the last two
@@ -48,6 +48,6 @@ ostream& operator<<(ostream& output, const Record& r)
   output<<"Record: " << r.year << "  " << setw(10) <<"Region: " << r.region << " "
                      << setw(10) <<"Degree: "<< r.degree << "   Number Employed: "
                      << fixed << setprecision(2) << right << r.numEmployed << "   Number Grades: "
-                     << fixed << setprecision(2)  << right << r.numGrades<< endl;
+                     << fixed << setprecision(2)  << right << r.numGrads<< endl;
   return output;
 }

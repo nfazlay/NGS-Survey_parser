@@ -1,15 +1,33 @@
 #include <iostream>
+#include <iterator>
+#include <fstream>
 #include <iomanip>
 #include <cstdlib>
+#include <string>
 
 using namespace std;
-#include <string>
-#include <vector>
+
 
 #include "ReportGenerator.h"
 
+
+/**Constructor
+ **/
 ReportGenerator::ReportGenerator(){
-    reportName  = "";
+    reportName  = " ";
+}
+
+/**Destructor- deallocated allocated memory
+ **/
+ReportGenerator::~ReportGenerator(){
+    //deallocate record memory here
+    for (auto i = records.begin(); i != records.end(); ++i){
+        delete *i;
+    } 
+}
+
+string ReportGenerator::getName(){
+    return reportName;
 }
 
 /**Helper function splits string passed
@@ -42,19 +60,18 @@ void ReportGenerator::split(const string& data, vector<string>& c){
 void ReportGenerator::parsePartial(){
     int year;
     string region, degree;
-
     int flag = 0;
 
-    for (auto i = records.begin(); i != records.end(); ++i){
-        Record* rcdPtr = *i;
+    for (int i = 0.; i < records.size(); ++i){
+        Record* rcdPtr = records[i];
         year = rcdPtr->getYear();
         degree = rcdPtr->getDegree();
         region = rcdPtr->getRegion();
 
         //iterates the partial year collections and checks if 
         //collection exists
-        for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
-            Property<int>* prpPtrTemp = *k;
+        for (int k = 0; k < yearCollection.size(); ++k){
+            Property<int>* prpPtrTemp = yearCollection[k];
             int data = prpPtrTemp->getData();
             if(year == data){//Property already exists
                 *(prpPtrTemp)+=rcdPtr;
@@ -74,8 +91,8 @@ void ReportGenerator::parsePartial(){
 
         //iterates the partial region collection and checks if 
         //collection exists
-        for (auto k = regionCollection.begin(); k != regionCollection.end(); ++k){
-            Property<string>* prpPtrTemp = *k;
+        for (int k = 0; k < regionCollection.size(); ++k){
+            Property<string>* prpPtrTemp = regionCollection[k];
             string data = prpPtrTemp->getData();
             if(region == data){//Property already exists
                 *(prpPtrTemp)+=rcdPtr;
@@ -88,15 +105,15 @@ void ReportGenerator::parsePartial(){
             //found in the partial collection
             //Create new property, add record to it and add to partial collection
             Property<string>* newProp = new Property<string>(region);
-            *(newProp)+= rcdPtr;
+            *(newProp) += rcdPtr;
             regionCollection.push_back(newProp);
         }
         flag = 0;
 
         //iterates the partial degree collections and checks if 
         //collection exists
-        for (auto k = degreeCollection.begin(); k != degreeCollection.end(); ++k){
-            Property<string>* prpPtrTemp = *k;
+        for (int k = 0; k < degreeCollection.size(); ++k){
+            Property<string>* prpPtrTemp = degreeCollection[k];
             string data = prpPtrTemp->getData();
             if(degree == data){//Property already exists
                 *(prpPtrTemp)+=rcdPtr;
@@ -132,10 +149,10 @@ bool ReportGenerator::load(string filePath){
             string degree = separated[2];
             string gender = separated[3];
             int numEmployed = stoi(separated[4]);
-            int numGrades = stoi(separated[5]);
+            int numGrads = stoi(separated[5]);
 
             //create record and add to vector of records
-            Record* newRecord = new Record(year, region, degree, gender, numEmployed, numGrades);
+            Record* newRecord = new Record(year, region, degree, gender, numEmployed, numGrads);
             records.push_back(newRecord);
         }
         newfile.close();//close the file object.

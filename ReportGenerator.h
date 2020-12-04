@@ -1,13 +1,7 @@
 #ifndef REPORTGEN_H
 #define REPORTGEN_H
 
-#include <iostream>
-#include <string>
 #include <vector>
-#include <iterator>
-#include <fstream>
-
-using namespace std;
 #include "Record.h"
 #include "List.h"
 #include "Property.h"
@@ -17,11 +11,13 @@ class ReportGenerator
 {
     public:
         ReportGenerator();
+        ~ReportGenerator();
         bool load(string);
+        string getName();
         void split(const string&, vector<string>&);
-        virtual void execute(string& outStr);
+        virtual void execute(string&){};
 
-    private:
+    protected:
         void parsePartial();
         string reportName; 
         vector<Record*> records;
