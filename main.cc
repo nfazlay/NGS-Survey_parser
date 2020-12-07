@@ -9,10 +9,11 @@ using namespace std;
 #include "Property.h"
 #include "ReportGenerator.h"
 #include "EmploymentPercent.h"
+#include "FemaleGrad.h"
 
 int main(){
     // List<Record> records;
-    EmploymentPercent rg;
+    FemaleGrad rg;
     //Record* r = new Record(2000, "AB", "Bachelor's", "All", 6900, 7500);
     // records.add(r);
     // records.add(r);
@@ -29,6 +30,7 @@ int main(){
     string f;
     rg.load("grad.dat");
     rg.execute(f);
+    cout<<f<<endl;
 
     //cout<< *r;
     return 0;

@@ -27,7 +27,7 @@ EmploymentPercent::EmploymentPercent(){
  * 
 **/
 void EmploymentPercent::execute(string& outStr){
-    string rpt = "        ";
+    string rpt = "";
     string rptTemp = "";
 
     //Setting flag to print out column only once
@@ -39,12 +39,12 @@ void EmploymentPercent::execute(string& outStr){
     for (int k = 0; k < regionCollection.size(); ++k){
         Property<string>* pr = regionCollection[k];
         string region = pr->getData();
-        rptTemp += region + "        ";
+        rptTemp += region + " ";
         for (int t = 0; t < degreeCollection.size(); ++t){
             Property<string>* pd = degreeCollection[t];
             string degree = pd->getData();
-            if(flag == 0){
-                rpt += degree + "        ";
+            if(flag == 0){//first line
+                rpt += degree + " ";
             }
 
             float total_grad = 0;
@@ -59,13 +59,15 @@ void EmploymentPercent::execute(string& outStr){
                 }
             }
             //calculating percentage
+            //if total_emp or total_grad is zero, set to zero
+            //to handle 0/x error
             float percentEmployed = (total_emp != 0) ? (total_emp/total_grad)*100: 0;
-            rptTemp += to_string(percentEmployed) + "        ";
+            rptTemp += to_string(percentEmployed) + " ";
         }
         flag = 1;
         rptTemp += '\n';
     }
     rpt += "\n";
     rpt += rptTemp;
-    cout<<rpt<<endl;   
+    outStr = rpt;  
 }
