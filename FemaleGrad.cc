@@ -11,13 +11,14 @@ using namespace std;
 /**Constructor that sets the report name
  **/
 FemaleGrad::FemaleGrad(){
-    reportName = "Employement Percentage by Degree for Each region";
+    reportName = "The top 3 and bottom 3 regions for percentage of female graduates";
 }
 
 
-/**Function that shows the employment percentage for 
+/**Function that shows the female grad percentage for 
  * 
- * each region, by degree, for all years and all genders
+ * each region by calculation female grad/total grad
+ * The top 3 and bottom 3 are output
  * 
  * Parameters:
  *      outStr(string&): Address of string where the output is stored

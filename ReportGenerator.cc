@@ -157,38 +157,9 @@ bool ReportGenerator::load(string filePath){
         }
         newfile.close();//close the file object.
         parsePartial();
-        /*for (auto k = yearCollection.begin(); k != yearCollection.end(); ++k){
-            Property<int> p = **k;
-            cout<<"Property Data: "<<p.getData()<<endl;
-            //Property<int> pr  = *p;
-            for(int i = 0; i < p.size(); i++){
-                Record* r = p[i];
-                cout<<*r;
-            }
-        }
-        cout<<"\n"<<"---------------------------------------------"<<endl;
-        for (auto k = regionCollection.begin(); k != regionCollection.end(); ++k){
-            Property<string> p = **k;
-            cout<<"Property Data: "<<p.getData()<<endl;
-            //Property<int> pr  = *p;
-            for(int i = 0; i < p.size(); i++){
-                Record* r = p[i];
-                cout<<*r;
-            }
-        }
-        cout<<"---------------------------------------------"<<endl;
-        for (auto k = degreeCollection.begin(); k != degreeCollection.end(); ++k){
-            Property<string> p = **k;
-            cout<<"Property Data: "<<p.getData()<<endl;
-            //Property<int> pr  = *p;
-            for(int i = 0; i < p.size(); i++){
-                Record* r = p[i];
-                cout<<*r;
-            }
-        }*/
     }
     else{
-        cout<<"Could not open file"<<endl;
+        cout<<"*******Could not open file******"<<endl;
         return false;
     }
     return true;

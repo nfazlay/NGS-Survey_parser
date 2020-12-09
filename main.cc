@@ -4,16 +4,11 @@
 using namespace std;
 #include <string>
 
-#include "Record.h"
-#include "List.h"
-#include "Property.h"
-#include "ReportGenerator.h"
-#include "EmploymentPercent.h"
-#include "FemaleGrad.h"
+#include "Control.h"
 
 int main(){
     // List<Record> records;
-    FemaleGrad rg;
+    // EmploymentProp rg;
     //Record* r = new Record(2000, "AB", "Bachelor's", "All", 6900, 7500);
     // records.add(r);
     // records.add(r);
@@ -27,10 +22,12 @@ int main(){
     // prop += r;
     // prop += r;
     // r = prop[2];
-    string f;
-    rg.load("grad.dat");
-    rg.execute(f);
-    cout<<f<<endl;
+    // string f;
+    // rg.load("grad.dat");
+    // rg.execute(f);
+    // cout<<f<<endl;
+    Control control;
+    control.launch();
 
     //cout<< *r;
     return 0;
