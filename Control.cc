@@ -43,7 +43,6 @@ void Control::launch(){
         bool check = false;
         for(int i =0; i < reports.size(); i++){
             if(!reports[i]->load(fileName)){
-                //view.printStr("Please input a valid file name");
                 check = true;
                 break;
             }
@@ -70,7 +69,7 @@ void Control::launch(){
         else{
             string rawReport;
             reports[n-1]->execute(rawReport);
-            view.printStr(rawReport);
+            view.printReport(rawReport);
         }
     }
  
