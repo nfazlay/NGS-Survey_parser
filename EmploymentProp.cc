@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <fstream>
+#include <cmath>
 using namespace std;
 
 #include "EmploymentProp.h"
@@ -27,15 +28,15 @@ EmploymentProp::EmploymentProp(){
  * 
 **/
 void EmploymentProp::execute(string& outStr){
-    string rpt = "";
-    string rptTemp = "";
+    string rpt = "";//final output which holds the column names initially
+    string rptTemp = "";//temporary output which is added to final output
 
     //Setting flag to print out column only once
     //After first iteration, column headers will not be added
     int flag = 0;
 
-    //Iterating the region collection for row headers
-    //and degree collection for column headers
+    //Iterating the region collection for region names
+    //and degree collection for degree names
     for (int k = 0; k < regionCollection.size(); ++k){
         Property<string>* pr = regionCollection[k];
         string region = pr->getData();
@@ -49,8 +50,7 @@ void EmploymentProp::execute(string& outStr){
 
             float total_emp_region = 0;
             float total_emp_overall = 0;
-            //iterating records to find total Graduates and 
-            //total employed for the degree and region
+            //iterating records to find total employed for the year and region
             for (int i = 0; i < records.size(); ++i){
                 Record* rcdPtr = records[i];
                 if(rcdPtr->getRegion()== region && rcdPtr->getYear() == year){
@@ -64,7 +64,8 @@ void EmploymentProp::execute(string& outStr){
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
             float percentEmployed = (total_emp_region != 0) ? (total_emp_region/total_emp_overall)*100: 0;
-            rptTemp += to_string(percentEmployed) + " ";
+            float nearest = floor(percentEmployed * 100) / 100; //rounding to two decimal
+            rptTemp += to_string(nearest) + " ";
         }
         flag = 1;
         rptTemp += '\n';

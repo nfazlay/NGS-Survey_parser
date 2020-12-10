@@ -11,7 +11,6 @@ class View
         void printMenu(string, int&);
         void printReport(string);
         void printStr(string);
-        void readInt(int&);
         void readStr(string&);
 };
 

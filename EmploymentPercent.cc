@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <fstream>
+#include <cmath>
 using namespace std;
 
 #include "EmploymentPercent.h"
@@ -27,8 +28,8 @@ EmploymentPercent::EmploymentPercent(){
  * 
 **/
 void EmploymentPercent::execute(string& outStr){
-    string rpt = "";
-    string rptTemp = "";
+    string rpt = "";//final output which holds the column names initially
+    string rptTemp = "";//temporary output which is added to final output
 
     //Setting flag to print out column only once
     //After first iteration, column headers will not be added
@@ -62,7 +63,8 @@ void EmploymentPercent::execute(string& outStr){
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
             float percentEmployed = (total_emp != 0) ? (total_emp/total_grad)*100: 0;
-            rptTemp += to_string(percentEmployed) + " ";
+            float nearest = floor(percentEmployed * 100) / 100; 
+            rptTemp += to_string(nearest) + " ";
         }
         flag = 1;
         rptTemp += '\n';

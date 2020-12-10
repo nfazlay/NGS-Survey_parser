@@ -12,8 +12,10 @@ using namespace std;
  * 
  * each concrete generator report class. 
  * Stores them in collection reports(Data member).
+ * 
  **/
 Control::Control(){
+    
     ReportGenerator* rg; 
 
     rg = new EmploymentPercent();

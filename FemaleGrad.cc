@@ -68,7 +68,8 @@ void FemaleGrad::execute(string& outStr){
         }
         else{
             //find the insertion point and insert
-            //setting flag = 1 when inserted in middle
+            //setting flag = 1 when inserted in middle/first
+            //else insert at the end
             int flag = 0;
             for(int i =0; i < data.size(); i++){
                 if(data[i].getValue() >= percentGrad){
@@ -77,7 +78,7 @@ void FemaleGrad::execute(string& outStr){
                     break;
                 }
             }
-            if(flag ==0){
+            if(flag == 0){
                 data.push_back(newTuple);
             }
         }
@@ -89,7 +90,6 @@ void FemaleGrad::execute(string& outStr){
         rptTempFirst += data[i].getKey() + " " + to_string(data[i].getValue()) + "\n";
         rptTempLast += data[data.size()-1-i].getKey() + " " + to_string(data[data.size()-1-i].getValue()) + "\n";
     }
-    rpt += "--------top three-------\npercentage\n" + rptTempLast;
-    rpt += "--------bottom three-------\npercentage\n" + rptTempFirst; 
+    rpt += "percentage\n" + rptTempLast + "\n" + rptTempFirst;
     outStr = rpt;
 }
