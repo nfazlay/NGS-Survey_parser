@@ -20,7 +20,6 @@ class List
     ~List();//delocates all nodes
     void add(T*);//adds data to linked list
     T* get(int);//return at given index
-    void print() const;//prints linked list data
     void cleanup();//delocates all data
     int getSize();//returns size
 
@@ -113,26 +112,6 @@ void List<T>::cleanup(){
     currNode = nextNode;
   }
   size = 0;
-}
-
-
-template <class T>
-void List<T>::print() const
-{
-  Node* currNode = head;
-
-  while (currNode != NULL) {
-    try
-    {
-      cout<< *(currNode->data);
-      currNode = currNode->next;
-    }
-    catch(...)
-    {
-      cerr<<"Object of type "<<typeid(*(currNode->data)).name()<<" cannot be printed"<<endl;
-    }
-    
-  }
 }
 
 #endif

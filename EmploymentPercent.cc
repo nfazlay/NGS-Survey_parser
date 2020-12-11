@@ -12,7 +12,7 @@ using namespace std;
 /**Constructor that sets the report name
  **/
 EmploymentPercent::EmploymentPercent(){
-    reportName = "Employement Percentage by Degree for Each region";
+    reportName = "Employement Percentage by degree for each region";
 }
 
 
@@ -54,7 +54,7 @@ void EmploymentPercent::execute(string& outStr){
             //total employed for the degree and region
             for (int i = 0; i < records.size(); ++i){
                 Record* rcdPtr = records[i];
-                if(rcdPtr->getDegree() == degree && rcdPtr->getRegion()== region){
+                if(rcdPtr->getDegree() == degree && rcdPtr->getRegion()== region && rcdPtr->getGender() == "All"){
                     total_emp += rcdPtr->getNumEmployed();
                     total_grad += rcdPtr->getnumGrads();
                 }

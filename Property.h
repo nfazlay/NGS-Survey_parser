@@ -58,7 +58,6 @@ Record* Property<T>::operator[](int i)
             throw "Invalid index";
         }
     }
-    //make change to exit here
     catch(...)
     {
         cout<<"Invalid Index"<<endl;

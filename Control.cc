@@ -26,6 +26,8 @@ Control::Control(){
     reports.push_back(rg);
     rg = new GenderGradPercent();
     reports.push_back(rg);
+    rg = new UnemployedGradPercent();
+    reports.push_back(rg);
 }
 
 Control::~Control(){

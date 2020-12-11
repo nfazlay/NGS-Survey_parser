@@ -4,8 +4,6 @@
 
 class Record
 {
-    friend ostream& operator<<(ostream&, const Record&);
-
     public:
         Record(int = 0, string = " ", string = " ", string = " ", int = 0, int = 0);
         int getYear();

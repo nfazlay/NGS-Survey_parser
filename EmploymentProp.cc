@@ -40,7 +40,9 @@ void EmploymentProp::execute(string& outStr){
     for (int k = 0; k < regionCollection.size(); ++k){
         Property<string>* pr = regionCollection[k];
         string region = pr->getData();
-        rptTemp += region + " ";
+        if(region != "CAN"){
+            rptTemp += region + " ";
+        }
         for (int t = 0; t < yearCollection.size(); ++t){
             Property<int>* pd = yearCollection[t];
             int year = pd->getData();
@@ -53,22 +55,26 @@ void EmploymentProp::execute(string& outStr){
             //iterating records to find total employed for the year and region
             for (int i = 0; i < records.size(); ++i){
                 Record* rcdPtr = records[i];
-                if(rcdPtr->getRegion()== region && rcdPtr->getYear() == year){
-                    total_emp_region += rcdPtr->getNumEmployed();
-                }
-                if(rcdPtr->getRegion()== "CAN" && rcdPtr->getYear() == year){
+                if(rcdPtr->getRegion()== "CAN" && rcdPtr->getYear() == year && rcdPtr->getGender() == "All"){
                     total_emp_overall += rcdPtr->getNumEmployed();
+                }
+                else if(rcdPtr->getRegion()== region && rcdPtr->getYear() == year && rcdPtr->getGender() == "All"){
+                    total_emp_region += rcdPtr->getNumEmployed();
                 }
             }
             //calculating percentage
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
-            float percentEmployed = (total_emp_region != 0) ? (total_emp_region/total_emp_overall)*100: 0;
-            float nearest = floor(percentEmployed * 100) / 100; //rounding to two decimal
-            rptTemp += to_string(nearest) + " ";
+            if(region != "CAN"){
+                float percentEmployed = (total_emp_region != 0) ? (total_emp_region/total_emp_overall)*100: 0;
+                float nearest = floor(percentEmployed * 100) / 100; //rounding to two decimal
+                rptTemp += to_string(nearest) + " ";
+            }
         }
         flag = 1;
-        rptTemp += '\n';
+        if(region != "CAN"){
+            rptTemp += '\n';
+        }
     }
     rpt += "\n";
     rpt += rptTemp;

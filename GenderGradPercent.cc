@@ -12,13 +12,13 @@ using namespace std;
 /**Constructor that sets the report name
  **/
 GenderGradPercent::GenderGradPercent(){
-    reportName = "Graduation by gender for each year";
+    reportName = "Proportion of Graduates for each gender by year";
 }
 
 
-/**Function that shows the employment percentage for 
+/**Function that shows the graduation percentage for 
  * 
- * each region, by degree, for all years and all genders
+ * each gender, by year, for all regions and all degrees
  * 
  * Parameters:
  *      outStr(string&): Address of string where the output is stored
@@ -35,38 +35,45 @@ void GenderGradPercent::execute(string& outStr){
     //After first iteration, column headers will not be added
     int flag = 0;
 
-    //Iterating the region collection for row headers
-    //and degree collection for column headers
+    //Iterating the year collection for row headers
+    //and gender collection for column headers
+
     for (int k = 0; k < yearCollection.size(); ++k){
+
         Property<int>* py = yearCollection[k];
         int year = py->getData();
         rptTemp += to_string(year) + " ";
+
         for (int t = 0; t < genderCollection.size(); ++t){
             Property<string>* pg = genderCollection[t];
             string gender = pg->getData();
             if(flag == 0){//first line
-                rpt += gender + " ";
+                if(gender != "All"){
+                    rpt += gender + " ";
+                }
             }
 
-            //iterating records to find total Graduates and 
-            //total employed for the degree and region
+            //iterating records to find total Graduates per gender 
+            //total graduates for all degree and gender
             float total_gender_grad = 0;
             float total_grad = 0;
             for (int i = 0; i < records.size(); ++i){
                 Record* rcdPtr = records[i];
-                if(rcdPtr->getYear() == year && rcdPtr->getGender()== gender){
-                    total_gender_grad += rcdPtr->getnumGrads();
-                }
                 if(rcdPtr->getGender() == "All" && rcdPtr->getYear() == year){
                     total_grad += rcdPtr->getnumGrads();
+                }
+                else if(rcdPtr->getYear() == year && rcdPtr->getGender()== gender){
+                    total_gender_grad += rcdPtr->getnumGrads();
                 }
             }
             //calculating percentage
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
-            float percentGrad = (total_gender_grad != 0) ? (total_gender_grad/total_grad)*100: 0;
-            float nearest = floor(percentGrad * 100) / 100; 
-            rptTemp += to_string(nearest) + " ";
+            if(gender != "All"){
+                float percentGrad = (total_gender_grad != 0) ? (total_gender_grad/total_grad)*100: 0;
+                float nearest = floor(percentGrad * 100) / 100; 
+                rptTemp += to_string(nearest) + " ";
+            }
         }
         flag = 1;
         rptTemp += '\n';
