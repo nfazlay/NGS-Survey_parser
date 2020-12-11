@@ -32,7 +32,7 @@ void View::printMenu(string str, int& n){
   while (!(cin >> n)){
       cout << "Please input a number: ";
       cin.clear();
-      cin.ignore(10000,'\n');
+      cin.ignore(100000,'\n');
   }
 }
 

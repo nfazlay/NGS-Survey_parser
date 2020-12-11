@@ -7,6 +7,7 @@
 #include "EmploymentPercent.h"
 #include "EmploymentProp.h"
 #include "FemaleGrad.h"
+#include "GenderGradPercent.h"
 #include "View.h"
 
 

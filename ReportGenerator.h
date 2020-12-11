@@ -21,9 +21,10 @@ class ReportGenerator
         void parsePartial();
         string reportName; 
         vector<Record*> records;
-        vector<Property<int>*> yearCollection;
+        vector<Property<int>*>    yearCollection;
         vector<Property<string>*> regionCollection;
-        vector<Property<string>*> degreeCollection; 
+        vector<Property<string>*> degreeCollection;
+        vector<Property<string>*> genderCollection;
 };
 
 

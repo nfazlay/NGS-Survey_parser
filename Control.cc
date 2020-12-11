@@ -24,6 +24,8 @@ Control::Control(){
     reports.push_back(rg);
     rg = new FemaleGrad();
     reports.push_back(rg);
+    rg = new GenderGradPercent();
+    reports.push_back(rg);
 }
 
 Control::~Control(){

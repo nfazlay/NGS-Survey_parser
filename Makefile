@@ -1,5 +1,5 @@
-final:		main.o Record.o ReportGenerator.o EmploymentPercent.o FemaleGrad.o EmploymentProp.o Control.o View.o
-	g++ -o final main.o Record.o ReportGenerator.o EmploymentPercent.o FemaleGrad.o EmploymentProp.o Control.o View.o
+final:		main.o Record.o ReportGenerator.o EmploymentPercent.o FemaleGrad.o EmploymentProp.o Control.o View.o GenderGradPercent.o
+	g++ -o final main.o Record.o ReportGenerator.o EmploymentPercent.o FemaleGrad.o EmploymentProp.o Control.o View.o GenderGradPercent.o
 
 main.o: 	main.cc
 	g++ -c main.cc
@@ -24,6 +24,9 @@ FemaleGrad.o: 	FemaleGrad.cc FemaleGrad.h
 
 EmploymentProp.o: 	EmploymentProp.cc EmploymentProp.h
 	g++ -c EmploymentProp.cc
+
+GenderGradPercent.o: 	GenderGradPercent.cc GenderGradPercent.h
+	g++ -c GenderGradPercent.cc
 
 clean:
 	rm -f *.o final

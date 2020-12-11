@@ -59,7 +59,10 @@ void ReportGenerator::split(const string& data, vector<string>& c){
 **/
 void ReportGenerator::parsePartial(){
     int year;
-    string region, degree;
+    string region, degree, gender;
+    //Checks if the property already exist
+    //add to current property if property exists
+    //create new property elsewise
     int flag = 0;
 
     for (int i = 0.; i < records.size(); ++i){
@@ -67,6 +70,7 @@ void ReportGenerator::parsePartial(){
         year = rcdPtr->getYear();
         degree = rcdPtr->getDegree();
         region = rcdPtr->getRegion();
+        gender = rcdPtr->getGender();
 
         //iterates the partial year collections and checks if 
         //collection exists
@@ -128,6 +132,27 @@ void ReportGenerator::parsePartial(){
             Property<string>* newProp = new Property<string>(degree);
             *(newProp)+= rcdPtr;
             degreeCollection.push_back(newProp);
+        }
+        flag = 0;
+
+        //iterates the partial gender collections and checks if 
+        //collection exists
+        for (int k = 0; k < genderCollection.size(); ++k){
+            Property<string>* prpPtrTemp = genderCollection[k];
+            string data = prpPtrTemp->getData();
+            if(gender == data){//Property already exists
+                *(prpPtrTemp)+=rcdPtr;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag != 1){
+            //we get here if no instance of current data is
+            //found in the partial collection
+            //Create new property, add record to it and add to partial collection
+            Property<string>* newProp = new Property<string>(gender);
+            *(newProp)+= rcdPtr;
+            genderCollection.push_back(newProp);
         }
         flag = 0;
     }

@@ -11,6 +11,7 @@ class Tuple
     public:
         Tuple(T, V);
         T getKey();
+        void setValue(V);
         V getValue();
     private:
         T key;
@@ -21,6 +22,13 @@ class Tuple
 template <class T, class V>
 Tuple<T, V>::Tuple(T t, V v){
     key = t;
+    value = v;
+}
+
+
+
+template <class T, class V>
+void Tuple<T, V>::setValue(V v){
     value = v;
 }
 
