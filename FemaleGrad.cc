@@ -98,5 +98,7 @@ void FemaleGrad::execute(string& outStr){
         rptTempLast += data[data.size()-1-i].key + " " + to_string(data[data.size()-1-i].value) + "\n";
     }
     rpt += "Percentage(%)\n" + rptTempLast + "\n" + rptTempFirst;//adding to the column headers
-    outStr = rpt;
+    string output;
+    format(rpt, output);
+    outStr = output;  
 }

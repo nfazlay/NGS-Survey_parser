@@ -81,5 +81,7 @@ void GenderGradPercent::execute(string& outStr){
     }
     rpt += "\n";
     rpt += rptTemp;//adding to the column headers
-    outStr = rpt;  
+    string output;
+    format(rpt, output);
+    outStr = output;  
 }

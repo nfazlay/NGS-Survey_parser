@@ -81,13 +81,13 @@ void Control::launch(){
         if(n == 0){
             break;
         }
-        else if(n < 0 || n > reports.size()){
+        else if(!n || n < 0 || n > reports.size()){
             view.printStr("Wrong input. Please try again");
         }
         else{
             string rawReport;
             reports[n-1]->execute(rawReport);
-            view.printReport(rawReport);
+            view.printStr(rawReport);
         }
     }
  

@@ -88,5 +88,7 @@ void UnemployedGradPercent::execute(string& outStr){
         rptTemp += data[i].key + " " + to_string(data[i].value) + "\n";   
     }
     rpt += "Percentage(%)\n" + rptTemp;
-    outStr = rpt; 
+    string output;
+    format(rpt, output);
+    outStr = output;  
 }

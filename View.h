@@ -13,9 +13,9 @@ class View
 {
     public:
         void printMenu(string, int&);
-        void printReport(string);
         void printStr(string);
         void readStr(string&);
+        void readInt(int&);
 };
 
 
