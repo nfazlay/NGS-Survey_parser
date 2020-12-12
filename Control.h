@@ -12,7 +12,12 @@
 #include "View.h"
 
 
-
+/** The control class controls the flow of the program
+ * 
+ * It initializes the five report generators and adds them
+ * to the collection. The I/O is handled by the view object
+ * 
+ **/
 class Control
 {
     public:

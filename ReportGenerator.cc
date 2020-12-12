@@ -20,10 +20,21 @@ ReportGenerator::ReportGenerator(){
 /**Destructor- deallocated allocated memory
  **/
 ReportGenerator::~ReportGenerator(){
-    //deallocate record memory here
-    for (auto i = records.begin(); i != records.end(); ++i){
-        delete *i;
-    } 
+    for(int i= 0; i< records.size(); i++){
+        delete records[i];
+    }
+    for(int i= 0; i< yearCollection.size(); i++){
+        delete yearCollection[i];
+    }
+    for(int i= 0; i< regionCollection.size(); i++){
+        delete regionCollection[i];
+    }
+    for(int i= 0; i< degreeCollection.size(); i++){
+        delete degreeCollection[i];
+    }
+    for(int i= 0; i< genderCollection.size(); i++){
+        delete genderCollection[i];
+    }
 }
 
 string ReportGenerator::getName(){
@@ -158,7 +169,17 @@ void ReportGenerator::parsePartial(){
     }
 }
 
-
+/** Iterates input file to find records 
+ * 
+ * Stores reports in collection and partial collection according
+ * to property
+ * 
+ * Peremeters:
+ *      filePath(string): location of input file
+ * 
+ * Returns:
+ *      None
+ **/
 bool ReportGenerator::load(string filePath){
     fstream newfile;
     newfile.open(filePath,ios::in); //open a file to perform read operation using file object
@@ -188,4 +209,72 @@ bool ReportGenerator::load(string filePath){
         return false;
     }
     return true;
+}
+
+/** Formats report from raw data
+ * 
+ * Loops over parameter string and formats report
+ * for viewing.
+ * 
+ * Parameters:
+ *      input(String): Raw data of report
+ *      output(string&): final report is stored
+ * 
+ * Returns:
+ *      None
+ * 
+ **/
+void ReportGenerator::format(string input, string& output){
+    istringstream iss(input);
+    stringstream ss;
+
+    int flagCol = 1;//checks if first row
+    int val = 2;//value to be multiplied for whitespace
+
+    //creating extra padding
+    ss<<endl<<endl;
+
+    for(string row; getline(iss, row);){
+      int flagRow = 1;//checks if item of first
+
+      string tmp;
+      stringstream sstemp(row);
+
+      while(getline(sstemp, tmp, ' ')){
+        if(flagCol == 1){//povide extra space for first row first item
+          ss<<setw(20*val)<<tmp;
+          val = 1;
+        }
+        else if(flagRow == 1){//first item of all other row is printed as is
+          ss<<setw(20*val)<<tmp;
+          flagRow = 0;
+        }
+        else{
+          //Error handling incase value of tmp is NaN
+          //Created for generic cases
+          //catch statement not accessed for five reports included
+          try
+          {
+            float num = stof(tmp);
+            ss<< fixed << setprecision(2) << setw(20*val)<< num ;
+          }
+          catch(...)
+          {
+            ss<<setw(20*val)<<tmp;
+          }
+        }
+      }
+      //padding after the first row is printed(Column Names)
+      if(flagCol == 1){
+        ss<<endl<<endl;
+        flagCol = 0;
+      }
+      else{
+        ss<<endl;
+      }
+    }
+    //creating extra padding
+    ss<<endl<<endl;
+
+    output = ss.str();
 }

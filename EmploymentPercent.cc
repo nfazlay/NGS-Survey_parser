@@ -42,24 +42,27 @@ void EmploymentPercent::execute(string& outStr){
         string region = pr->getData();
         rptTemp += region + " ";
         for (int t = 0; t < degreeCollection.size(); ++t){
-            Property<string>* pd = degreeCollection[t];
-            string degree = pd->getData();
-            if(flag == 0){//first line
+            Property<string> pd = *degreeCollection[t];
+            string degree = pd.getData();
+            if(flag == 0){//first row(column headers)
                 rpt += degree + " ";
             }
 
             float total_grad = 0;
             float total_emp = 0;
+
             //iterating records to find total Graduates and 
-            //total employed for the degree and region
-            for (int i = 0; i < records.size(); ++i){
-                Record* rcdPtr = records[i];
-                if(rcdPtr->getDegree() == degree && rcdPtr->getRegion()== region && rcdPtr->getGender() == "All"){
+            //total employed for the degree and region above
+            for (int i = 0; i < pd.size(); ++i){
+                Record* rcdPtr = pd[i];
+                if(rcdPtr->getRegion()== region && rcdPtr->getGender() == "All"){
                     total_emp += rcdPtr->getNumEmployed();
                     total_grad += rcdPtr->getnumGrads();
                 }
             }
-            //calculating percentage
+
+            //calculating percentage of employement % by dividing total 
+            //employment by total graduates for a year and for a region
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
             float percentEmployed = (total_emp != 0) ? (total_emp/total_grad)*100: 0;
@@ -70,6 +73,8 @@ void EmploymentPercent::execute(string& outStr){
         rptTemp += '\n';
     }
     rpt += "\n";
-    rpt += rptTemp;
-    outStr = rpt;  
+    rpt += rptTemp;//adding to the column headers
+    string output;
+    format(rpt, output);
+    outStr = output;  
 }

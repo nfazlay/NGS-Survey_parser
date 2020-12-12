@@ -12,13 +12,13 @@ using namespace std;
 /**Constructor that sets the report name
  **/
 UnemployedGradPercent::UnemployedGradPercent(){
-    reportName = "Greatest unemployment rate in grads by region(lowest to highest)";
+    reportName = "Unemployment rate in grads by region(lowest to highest)";
 }
 
 
-/**Function that shows the employment percentage for 
+/**Function that shows the upemployment percentage for 
  * 
- * each region, by degree, for all years and all genders
+ * each region, for all years, all genders and all degree
  * 
  * Parameters:
  *      outStr(string&): Address of string where the output is stored
@@ -31,38 +31,36 @@ void UnemployedGradPercent::execute(string& outStr){
     string rpt = "";//final output which holds the column names initially
     string rptTemp = "";//temporary output which is added to final output
 
-    //Setting flag to print out column only once
-    //After first iteration, column headers will not be added
-    int flag = 0;
+    vector<Tuple> data;
 
-    vector<Tuple<string, float>> data;
-
-    //Iterating the region collection for row headers
-    //and degree collection for column headers
+    //and region collection for row headers
     for (int k = 0; k < regionCollection.size(); ++k){
 
-        Property<string>* pr = regionCollection[k];
-        string region = pr->getData();
+        Property<string> pr = *regionCollection[k];
+        string region = pr.getData();
 
         float total_grad = 0;
         float total_emp = 0;
-        //iterating records to find total Graduates and 
+        //iterating records in property to find total Graduates and 
         //total employed for the degree and region
-        for (int i = 0; i < records.size(); ++i){
-            Record* rcdPtr = records[i];
-            if(rcdPtr->getRegion()== region && rcdPtr->getGender() == "All"){
+        for (int i = 0; i < pr.size(); ++i){
+            Record* rcdPtr = pr[i];
+            if(rcdPtr->getGender() == "All"){
                 total_emp += rcdPtr->getNumEmployed();
                 total_grad += rcdPtr->getnumGrads();
             }
         }
-        //calculating percentage
+        //calculating percentage 
         //if total_emp or total_grad is zero, set to zero
         //to handle 0/x error
         float percentUnemployed = (total_grad != 0) ? ((total_grad - total_emp)/total_grad)*100: 0;
         float nearest = floor(percentUnemployed * 100) / 100; 
 
 
-        Tuple<string, float> newTuple(region, nearest);
+        Tuple newTuple;
+        newTuple.key = region;
+        newTuple.value = nearest;
+
         if(data.size()== 0){//first insertion
             data.push_back(newTuple);
         }
@@ -72,7 +70,7 @@ void UnemployedGradPercent::execute(string& outStr){
             //else insert at the end
             int flag = 0;
             for(int i =0; i < data.size(); i++){
-                if(data[i].getValue() >= nearest){
+                if(data[i].value >= nearest){
                     data.insert(data.begin()+i, newTuple);
                     flag = 1;
                     break;
@@ -85,10 +83,9 @@ void UnemployedGradPercent::execute(string& outStr){
     }
 
     //build string from the tuples
-    //iterate three times to find the first three and the last three
+    //iterate to get data from sorted vector
     for(int i =0; i< data.size(); i++){
-        rptTemp += data[i].getKey() + " " + to_string(data[i].getValue()) + "\n";
-        
+        rptTemp += data[i].key + " " + to_string(data[i].value) + "\n";   
     }
     rpt += "Percentage(%)\n" + rptTemp;
     outStr = rpt; 

@@ -5,6 +5,12 @@
 using namespace std;
 #include <cstdlib>
 
+
+/***Collection class template 
+ * 
+ * Singly linked list
+ * 
+ **/
 template <class T>
 class List
 {
@@ -20,7 +26,6 @@ class List
     ~List();//delocates all nodes
     void add(T*);//adds data to linked list
     T* get(int);//return at given index
-    void cleanup();//delocates all data
     int getSize();//returns size
 
   private:
@@ -29,9 +34,14 @@ class List
     int size;
 };
 
+/** Constructor setting the head and tail to null
+ **/
 template <class T>
 List<T>::List() : head(NULL), tail(NULL), size(0){}
 
+
+/** Destructor Deallocating all dynamically allocated nodes
+ **/
 template <class T>
 List<T>::~List()
 {
@@ -54,6 +64,9 @@ int List<T>::getSize()
 {
   return size;
 }
+
+/** Adds a node to the end of the list
+ **/
 template <class T>
 void List<T>::add(T* d)
 {
@@ -75,6 +88,8 @@ void List<T>::add(T* d)
   size++;
 }
 
+/** Returns node at specified index, null otherwise
+ **/
 template <class T>
 T* List<T>::get(int index){
   Node* currNode;
@@ -97,21 +112,6 @@ T* List<T>::get(int index){
   }
   //Get here is index not found
   return NULL; 
-}
-
-template <class T>
-void List<T>::cleanup(){
-  Node* currNode;
-  Node* nextNode;
-
-  currNode = head;
-
-  while (currNode != NULL) {
-    nextNode = currNode->next;
-    delete currNode->data;
-    currNode = nextNode;
-  }
-  size = 0;
 }
 
 #endif

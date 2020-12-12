@@ -3,12 +3,17 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-#include "List.h"
 #include "Record.h"
 
+/**Template class that stores data of type specifies in the template and 
+ * 
+ * a cllection of record pointers
+ * 
+ **/
 template <class T>
 class Property
 {
@@ -21,49 +26,73 @@ class Property
         
     private:
         T data;
-        List<Record> records;
+        vector<Record*> records;
 };
 
+/** Class contructor that sets the data
+ **/
 template <class T>
 Property<T>::Property(T d){
     data = d;
 }
 
+/**Returns the size of the collection
+ * 
+ * Parameters:
+ *      None
+ * 
+ * Returns:
+ *      Size of the collection
+ **/
 template <class T>
 int Property<T>::size(){
-    return records.getSize();
+    return records.size();
 }
 
+/** Returns the type of property
+ * 
+ * Parameters:
+ *      None
+ * 
+ * Returns:
+ *      The property the collection is based on
+ **/
 template <class T>
 T Property<T>::getData(){
     return data;
 }
 
+/** Adds to thr end of the collection
+ * 
+ * Parameters:
+ *      None
+ * 
+ * Returns: 
+ *      The current property object
+ **/
 template <class T>
 Property<T>& Property<T>::operator+=(Record* item){
-    records.add(item);
+    records.push_back(item);
     return *this;
 }
 
+/** Searches collection for records
+ * 
+ * Parameters:
+ *      i(int): Index to find the record
+ * 
+ * Returns:
+ *      Record* at the index in collection
+ **/
 template <class T>
 Record* Property<T>::operator[](int i)
 {
-    int index = i;
-    Record* t;
 
-    try
-    {
-        t = records.get(index);
-        if(t == NULL){
-            throw "Invalid index";
-        }
+    if(i < 0 || i >= size()){
+        cout<<"Index out of bounds"<<endl;
+        return NULL;
     }
-    catch(...)
-    {
-        cout<<"Invalid Index"<<endl;
-        exit(1);
-    }
-    return t;
+    return records[i];
 }
 
 #endif

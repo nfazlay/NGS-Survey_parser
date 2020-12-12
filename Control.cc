@@ -30,6 +30,8 @@ Control::Control(){
     reports.push_back(rg);
 }
 
+/** Deaalocates the report generators
+ **/
 Control::~Control(){
     for(int i =0;i< reports.size(); i++){
         delete reports[i];
@@ -37,6 +39,12 @@ Control::~Control(){
 }
 
 
+
+/** Handles I/O using the view object
+ * 
+ * Querries the the report generators for raw report data
+ * 
+ **/
 void Control::launch(){
     
     //checks if the file name is correct
@@ -59,6 +67,10 @@ void Control::launch(){
         
     }
 
+    //Querries for name from reports collection and
+    //Displays the menu to the screen using the names
+    //If user presses 0, exit program
+    //Otherwise print the report requested by the user
     while(1){
         int n;
         string names = "";

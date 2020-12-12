@@ -12,13 +12,13 @@ using namespace std;
 /**Constructor that sets the report name
  **/
 GenderGradPercent::GenderGradPercent(){
-    reportName = "Proportion of Graduates for each gender by year";
+    reportName = "Proportion of Graduates for each year by gender";
 }
 
 
 /**Function that shows the graduation percentage for 
  * 
- * each gender, by year, for all regions and all degrees
+ * each year, by gender, for all regions and all degrees
  * 
  * Parameters:
  *      outStr(string&): Address of string where the output is stored
@@ -66,7 +66,8 @@ void GenderGradPercent::execute(string& outStr){
                     total_gender_grad += rcdPtr->getnumGrads();
                 }
             }
-            //calculating percentage
+            //calculating percentage by dividing total grad for the gender and 
+            //the total grad for the region
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
             if(gender != "All"){
@@ -79,6 +80,6 @@ void GenderGradPercent::execute(string& outStr){
         rptTemp += '\n';
     }
     rpt += "\n";
-    rpt += rptTemp;
+    rpt += rptTemp;//adding to the column headers
     outStr = rpt;  
 }

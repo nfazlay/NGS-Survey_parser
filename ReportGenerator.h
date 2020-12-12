@@ -14,10 +14,11 @@ class ReportGenerator
         ~ReportGenerator();
         bool load(string);
         string getName();
-        void split(const string&, vector<string>&);
+        void format(string, string& );
         virtual void execute(string&){};
 
     protected:
+        void split(const string&, vector<string>&);
         void parsePartial();
         string reportName; 
         vector<Record*> records;

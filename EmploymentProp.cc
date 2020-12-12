@@ -16,9 +16,10 @@ EmploymentProp::EmploymentProp(){
 }
 
 
-/**Function that shows the employment percentage for 
+/**Function that shows the employment proportion for 
  * 
- * each region, by degree, for all years and all genders
+ * each region, by year, for all degress and all genders
+ * compared to all of Canada
  * 
  * Parameters:
  *      outStr(string&): Address of string where the output is stored
@@ -36,16 +37,16 @@ void EmploymentProp::execute(string& outStr){
     int flag = 0;
 
     //Iterating the region collection for region names
-    //and degree collection for degree names
+    //and year collection for years
     for (int k = 0; k < regionCollection.size(); ++k){
         Property<string>* pr = regionCollection[k];
         string region = pr->getData();
-        if(region != "CAN"){
+        if(region != "CAN"){//Do not display Canada values as Canada is the region being compares to
             rptTemp += region + " ";
         }
         for (int t = 0; t < yearCollection.size(); ++t){
-            Property<int>* pd = yearCollection[t];
-            int year = pd->getData();
+            Property<int> pd = *yearCollection[t];
+            int year = pd.getData();
             if(flag == 0){//first line
                 rpt += to_string(year) + " ";
             }
@@ -53,16 +54,17 @@ void EmploymentProp::execute(string& outStr){
             float total_emp_region = 0;
             float total_emp_overall = 0;
             //iterating records to find total employed for the year and region
-            for (int i = 0; i < records.size(); ++i){
-                Record* rcdPtr = records[i];
-                if(rcdPtr->getRegion()== "CAN" && rcdPtr->getYear() == year && rcdPtr->getGender() == "All"){
+            for (int i = 0; i < pd.size(); ++i){
+                Record* rcdPtr = pd[i];
+                if(rcdPtr->getRegion()== "CAN" && rcdPtr->getGender() == "All"){
                     total_emp_overall += rcdPtr->getNumEmployed();
                 }
-                else if(rcdPtr->getRegion()== region && rcdPtr->getYear() == year && rcdPtr->getGender() == "All"){
+                else if(rcdPtr->getRegion()== region && rcdPtr->getGender() == "All"){
                     total_emp_region += rcdPtr->getNumEmployed();
                 }
             }
-            //calculating percentage
+            //calculating proportion of employement % by dividing total 
+            //employment in region by total employment in Canada for the respected year
             //if total_emp or total_grad is zero, set to zero
             //to handle 0/x error
             if(region != "CAN"){
@@ -77,6 +79,6 @@ void EmploymentProp::execute(string& outStr){
         }
     }
     rpt += "\n";
-    rpt += rptTemp;
+    rpt += rptTemp;//adding to the column headers
     outStr = rpt;  
 }

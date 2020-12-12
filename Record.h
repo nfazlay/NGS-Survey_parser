@@ -2,6 +2,12 @@
 #define RECORD_H
 
 
+/** Stores records values from input file
+ * 
+ * Records consist of year, degree, gender, number 
+ * employed and total grads
+ * 
+ **/
 class Record
 {
     public:
