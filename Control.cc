@@ -3,6 +3,9 @@
 #include <vector>
 #include <iterator>
 #include <fstream>
+#include <iomanip>
+#include <sstream>
+#include <cstdlib>
 using namespace std;
 
 #include "Control.h"
@@ -72,16 +75,36 @@ void Control::launch(){
     //If user presses 0, exit program
     //Otherwise print the report requested by the user
     while(1){
-        int n;
+        int n = -1;
         string names = "";
+        stringstream ss;
+        
+        //get names from report generators
         for(int i = 0; i < reports.size(); i++){
             names += (to_string(i+1) + ") "+ reports[i]->getName()+"\n");
         }
-        view.printMenu(names, n);
+
+        istringstream iss(names);
+        ss<< setw(70) << "_______________MENU_______________"<<endl;
+        ss<< setw(70) << "Please select one of the following" <<endl<<endl;
+        
+        for(string line; getline(iss, line);){
+            ss << setw(30 + line.size()) << line << endl;
+        }
+
+        ss<< setw(37) <<"0) Exit"<<endl<<endl;;
+        ss<<"Your Selection: ";
+        view.printStr(ss.str());
+        view.readInt(n);//ask user for input
+
+        //provide output
+        //if 0-> exit program
+        //if outside choice, ask again
+        //if correct input, print report
         if(n == 0){
             break;
         }
-        else if(!n || n < 0 || n > reports.size()){
+        else if( !n || n < 0 || n > reports.size()){
             view.printStr("Wrong input. Please try again");
         }
         else{

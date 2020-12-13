@@ -8,36 +8,6 @@ using namespace std;
 #include "View.h"
 
 
-/**Prints out menu from the user and asks for input
- * 
- * Parameters: 
- *      str(string): String containing names of reports
- *      n(int&): input from user is returned here
- * 
- **/
-void View::printMenu(string str, int& n){
-
-
-  istringstream iss(str);
-
-  cout<< setw(70) << "_______________MENU_______________"<<endl;
-  cout<< setw(70) << "Please select one of the following" <<endl<<endl;
-
-  for(string line; getline(iss, line);){
-    cout << setw(30 + line.size()) << line << endl;
-  }
-
-  cout<< setw(37) <<"0) Exit"<<endl;
-  cout<<"Your Selection: ";
-  while (!(cin >> n)){
-      cout << "Please input a number: ";
-      cin.clear();
-      cin.ignore(100000,'\n');
-  }
-}
-
-
-
 /**Prints out data
  * 
  * Parameters:
@@ -45,7 +15,7 @@ void View::printMenu(string str, int& n){
  * 
  **/ 
 void View::printStr(string str){
-    cout<<str<<endl;
+    cout<<str;
 }
 
 /**Asks for input from user
@@ -65,5 +35,13 @@ void View::readStr(string& str){
  * 
  **/ 
 void View::readInt(int& i){
-  cin >> i;
+  try
+  {
+    cin >> i;
+  }
+  catch(const std::exception& e)
+  {
+    cout << "Ehheee"<< '\n';
+  }
+  
 }
