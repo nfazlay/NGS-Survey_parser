@@ -35,13 +35,6 @@ void View::readStr(string& str){
  * 
  **/ 
 void View::readInt(int& i){
-  try
-  {
-    cin >> i;
-  }
-  catch(const std::exception& e)
-  {
-    cout << "Ehheee"<< '\n';
-  }
+  cin >> i;
   
 }

@@ -3,9 +3,9 @@
 
 #include "ReportGenerator.h"
 
-/**Calculates the employment percentage for 
+/**Concrete class from base report generator that calculates
  * 
- * each region, by degree, for all years and all genders
+ * the employment percentage for each region, by degree, for all years and all genders
  * 
  **/
 class EmploymentPercent: public ReportGenerator

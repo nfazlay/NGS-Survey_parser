@@ -105,7 +105,7 @@ void Control::launch(){
             break;
         }
         else if( !n || n < 0 || n > reports.size()){
-            view.printStr("Wrong input. Please try again");
+            view.printStr("Wrong input. Please try again\n");
         }
         else{
             string rawReport;

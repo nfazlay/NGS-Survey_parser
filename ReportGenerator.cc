@@ -213,8 +213,8 @@ bool ReportGenerator::load(string filePath){
 
 /** Formats report from raw data
  * 
- * Loops over parameter string and formats report
- * for viewing.
+ * Loops over parameter string input and formats report
+ * for viewing and stores in parameter output
  * 
  * Parameters:
  *      input(String): Raw data of report

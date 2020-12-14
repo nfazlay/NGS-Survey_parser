@@ -3,9 +3,10 @@
 
 #include "ReportGenerator.h"
 
-/**Function that shows the graduation percentage for 
+/**Concrete class from base report generator that 
  * 
- * each year, by gender, for all regions and all degrees
+ * calculates graduation percentage foreach year, by gender, 
+ * for all regions and all degrees
  * 
  **/
 class GenderGradPercent: public ReportGenerator

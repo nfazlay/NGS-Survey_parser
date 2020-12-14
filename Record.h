@@ -7,6 +7,14 @@
  * Records consist of year, degree, gender, number 
  * employed and total grads
  * 
+ * Data members:
+ *      year(int): Year
+ *      region(string): region
+ *      degree(string): degree
+ *      gender(string): gender
+ *      numEmployed(int): Number of Employed
+ *      numGrads(int): Number of Graduates
+ * 
  **/
 class Record
 {

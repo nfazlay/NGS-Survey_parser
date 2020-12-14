@@ -9,9 +9,13 @@ using namespace std;
 
 #include "Record.h"
 
-/**Template class that stores data of type specifies in the template and 
+/**Template class that stores data of type specified in the template and 
  * 
- * a cllection of record pointers
+ * a collection of record pointers of that property
+ * 
+ * Data Members:
+ *      T data: Data of Type T
+ *      records: collection of record pointers
  * 
  **/
 template <class T>

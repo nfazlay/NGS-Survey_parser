@@ -4,9 +4,9 @@
 #include "ReportGenerator.h"
 
 
-/** Calculates the top 3 and the bottom 3 region for % 
+/**Concrete class from base report generator that calculates 
  * 
- * of female graduates
+ * the top 3 and the bottom 3 region for % of female graduates
  * 
  **/
 class FemaleGrad: public ReportGenerator

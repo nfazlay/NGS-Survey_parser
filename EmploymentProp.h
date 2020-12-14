@@ -3,10 +3,10 @@
 
 #include "ReportGenerator.h"
 
-/**Calculates the employment proportion for 
+/**Concrete class from base report generator that calculates
  * 
- * each region, by year, for all degress and all genders
- * compared to all of Canada
+ * the employment proportion for each region, by year, 
+ * for all degress and all genders compared to all of Canada
  * 
  **/
 class EmploymentProp: public ReportGenerator

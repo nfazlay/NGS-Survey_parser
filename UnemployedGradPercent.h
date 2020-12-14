@@ -3,14 +3,14 @@
 
 #include "ReportGenerator.h"
 
-/**Calculates the upemployment percentage for 
+/**Concrete class from base report generator that calculates 
  * 
- * each region, for all years, all genders and all degree
+ * the upemployment percentage for each region, for all years, all genders and all degree
  * 
  **/
 class UnemployedGradPercent: public ReportGenerator
 {
-    /** Stores key-value pairs for use in report generation
+    /** Stores key-value(string-float) pairs for use in report generation
      **/
     class Tuple
     {
